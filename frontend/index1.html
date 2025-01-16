@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestión de Usuarios y Bootcamps</title>
+    <link rel="stylesheet" href="styles.css">
+    <!-- Enlace a Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <h1>Gestión de Usuarios y Bootcamps</h1>
+    </header>
+
+ <!-- Formulario de Login -->
+<div id="login-form">
+    <input type="email" id="login-email" placeholder="Email" required>
+    <input type="password" id="login-password" placeholder="Contraseña" required>
+    <button onclick="login()">Iniciar sesión</button>
+    <button id="show-signup-btn">Registrarse</button>
+</div>
+
+<!-- Formulario de Registro -->
+<div id="signup-form" style="display:none;">
+    <input type="text" id="signup-firstname" placeholder="Nombre" required>
+    <input type="text" id="signup-lastname" placeholder="Apellido" required>
+    <input type="email" id="signup-email" placeholder="Email" required>
+    <input type="password" id="signup-password" placeholder="Contraseña" required>
+    <button onclick="signUp()">Registrar</button>
+    <button id="show-login-btn">Volver a Login</button>
+</div>
+
+
+    <div class="container">
+        <!-- Sección de Usuarios -->
+        <div class="section">
+            <h2>Usuarios</h2>
+            <div id="user-list">
+                  <!-- Botón para obtener la lista de usuarios -->
+            </div>
+        </div>
+        <div class="container">
+            <h1>Lista de Usuarios</h1>
+            
+            <!-- Botón para cargar los usuarios -->
+        
+            <ul id="usersList"></ul>  <!-- Aquí se mostrará la lista de usuarios -->
+        
+            <div id="responseMessage"></div> <!-- Mensaje de error si algo falla -->
+            <ul id="lista-usuarios"></ul>
+
+            <button onclick="obtenerUsuarios()">Obtener Usuarios</button>
+            <ul id="listaUsuarios"></ul>
+          </div>
+
+          <!-- Modal para editar usuario -->
+<div id="modalEditarUsuario" class="modal" style="display:none;">
+    <div class="modal-content">
+      <span id="cerrarModal" class="cerrar">&times;</span>
+      <h2>Editar Usuario</h2>
+      <form id="formEditarUsuario">
+        <label for="editFirstName">Nombre:</label>
+        <input type="text" id="editFirstName" name="firstName" required>
+        <br>
+        <label for="editLastName">Apellido:</label>
+        <input type="text" id="editLastName" name="lastName" required>
+        <br>
+        <label for="editEmail">Email:</label>
+        <input type="email" id="editEmail" name="email" required>
+        <br>
+        <button type="submit">Guardar Cambios</button>
+        <button type="button" id="cancelarEdicion">Cancelar</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- buscar usuario por id -->
+  <div>
+    <h2>Buscar Usuario por ID</h2>
+    <input type="number" id="buscarUsuarioIdInput" placeholder="Ingrese el ID del usuario" />
+    <button id="buscarUsuarioIdBtn">Buscar Usuario</button>
+    <div id="detalleUsuario"></div>
+  </div>
+  
+    
+
+        <!-- Sección de Bootcamps -->
+        <div class="section">
+            <h2>Bootcamps</h2>
+            <div id="bootcamp-list">
+                <!-- Aquí se cargarán dinámicamente los bootcamps -->
+            </div>
+            <button id="cargarBootcamps">Cargar Bootcamps</button>
+            <ul id="listaBootcamps"></ul>
+            
+
+        </div>
+
+         <!-- Modal para agregar usuarios al bootcamp -->
+  <div id="modalAdduser" class="modal" style="display:none;">
+    <div class="modal-content">
+      <span id="cerrarAddUser" class="cerrar">&times;</span>
+      <h2>Agregar Usuarios al Bootcamp</h2>
+      <form id="formAddUser">
+        <label for="emails">Correos Electrónicos de los Usuarios:</label>
+        <input type="text" id="emails" placeholder="separados por coma" required>
+        <br><br>
+        <button type="submit">Agregar Usuarios</button>
+        <button type="button" id="cancelarAddUser">Cancelar</button>
+      </form>
+    </div>
+  </div>
+       <!-- Botón para agregar un bootcamp -->
+<button id="abrirModalAgregarBootcamp">Agregar Bootcamp</button>
+
+<!-- Modal para agregar bootcamp -->
+<div id="modalAgregarBootcamp" class="modal" style="display:none;">
+  <div class="modal-content">
+    <span id="cerrarModalAgregarBootcamp" class="cerrar">&times;</span>
+    <h2>Agregar Bootcamp</h2>
+    <form id="formAgregarBootcamp">
+      <label for="titulo">Título del Bootcamp:</label>
+      <input type="text" id="titulo" placeholder="Título" required>
+      <br><br>
+
+      <label for="cue">CUE:</label>
+      <input type="number" id="cue" placeholder="CUE" required>
+      <br><br>
+
+      <label for="descripcion">Descripción:</label>
+      <textarea id="descripcion" placeholder="Descripción" required></textarea>
+      <br><br>
+
+      <button type="submit">Crear Bootcamp</button>
+      <button type="button" id="cancelarAgregarBootcamp">Cancelar</button>
+    </form>
+  </div>
+</div>
+       <!-- buscar bootcamp por id-->
+
+<div>
+    <h2>Buscar Bootcamp por ID</h2>
+    <input type="number" id="buscarBootcampIdInput" placeholder="Ingrese el ID del bootcamp" />
+    <button id="buscarBootcampIdBtn">Buscar Bootcamp</button>
+    <div id="detalleBootcamp"></div>
+  </div>
+  
+<!-- Modal para Editar Bootcamp -->
+<div id="modalEditarBootcamp" class="modal">
+    <div class="modal-content">
+      <span id="cerrarModalEditar" class="close">&times;</span>
+      <h2>Editar Bootcamp</h2>
+      <form id="formEditarBootcamp">
+        <label for="nuevoTitulo">Título:</label>
+        <input type="text" id="nuevoTitulo" name="nuevoTitulo" required />
+        <label for="nuevoCue">CUE:</label>
+        <input type="text" id="nuevoCue" name="nuevoCue" required />
+        <label for="nuevaDescripcion">Descripción:</label>
+        <textarea id="nuevaDescripcion" name="nuevaDescripcion" required></textarea>
+        <button type="submit">Guardar Cambios</button>
+      </form>
+    </div>
+  </div>
+  
+    
+</div>
+    <script src="app.js"></script>
+</body>
+</html>
